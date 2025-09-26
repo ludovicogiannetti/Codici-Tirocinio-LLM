@@ -1,0 +1,129 @@
+Shape: (10000, 15)
+
+Colonne disponibili: ['url', 'similarity', 'hash', 'pwatermark', 'punsafe', 'caption', 'key', 'status', 'error_message', 'width', 'height', 'original_width', 'original_height', 'exif', 'md5']
+
+Valori mancanti per colonna:
+url                   0
+similarity           15
+hash                  0
+pwatermark           64
+punsafe               0
+caption               0
+key                   0
+status                0
+error_message      9627
+width               373
+height              373
+original_width      373
+original_height     373
+exif                373
+md5                 373
+dtype: int64
+
+=== Panoramica Dataset ===
+Numero totale di parole nelle caption: 106047
+Lunghezza media caption: 66.79 caratteri
+Lunghezza minima caption: 5
+Lunghezza massima caption: 1396
+Dimensione media immagine (px): 119665
+Dimensione minima immagine (px): 2209.0
+Dimensione massima immagine (px): 852096.0
+Dimensione media immagine originale (px): 306409
+Dimensione minima immagine originale (px): 2209.0
+Dimensione massima immagine originale (px): 66060288.0
+
+Analisi degli status:
+
+Distribuzione degli status:
+status
+success               9627
+failed_to_download     355
+failed_to_resize        18
+Name: count, dtype: int64
+
+Trovati 373 record con status diverso da 'success':
+
+Top 10 messaggi di errore:
+error_message
+HTTP Error 403: Forbidden                                          97
+HTTP Error 404: Not Found                                          91
+The read operation timed out                                       23
+<urlopen error [Errno -3] Temporary failure in name resolution>    20
+<urlopen error timed out>                                          19
+Image decoding error                                               17
+<urlopen error [Errno 111] Connection refused>                     16
+<urlopen error [Errno -2] Name or service not known>               10
+HTTP Error 404: File Not Found                                      7
+timed out                                                           7
+Name: count, dtype: int64
+
+Esempi di record non-success:
+                status  ...                                                url
+33  failed_to_download  ...  http://www.howsweeteats.com/wp-content/uploads...
+45  failed_to_download  ...  https://www.specsserver.com/CACHE/FRQWJAJSTDUT...
+61  failed_to_download  ...  https://caravanagainstfear.org/wp-content/uplo...
+
+[3 rows x 3 columns]
+
+Sample dopo preprocessing:
+
+Top 10 domini:
+domain
+cdn.shopify.com                    551
+i.pinimg.com                       390
+i.ebayimg.com                      161
+images-na.ssl-images-amazon.com    151
+render.fineartamerica.com          110
+i.ytimg.com                        109
+thumbs.dreamstime.com               98
+us.123rf.com                        95
+www.specsserver.com                 83
+t0.gstatic.com                      83
+Name: count, dtype: int64
+C:\Users\Filippo\Desktop\tirocinio_codici\ANALISI-DATASET\analisi_dataset.py:205: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=top_domains.values, y=top_domains.index, palette="viridis")
+
+Caricamento modello NLP spaCy...
+
+Top 20 lemmi più frequenti:
+photo: 204
+image: 195
+new: 172
+white: 149
+black: 146
+set: 130
+stock: 129
+design: 128
+free: 126
+home: 104
+vector: 101
+sale: 101
+blue: 98
+red: 96
+cover: 89
+shirt: 84
+art: 84
+gold: 82
+case: 76
+book: 76
+C:\Users\Filippo\Desktop\tirocinio_codici\ANALISI-DATASET\analisi_dataset.py:158: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=[x[1] for x in top_lemmas], y=[x[0] for x in top_lemmas], palette="magma")
+
+Statistiche similarity:
+ count    9627.000000
+mean        0.330298
+std         0.029008
+min         0.268853
+5%          0.291655
+25%         0.309069
+50%         0.324486
+75%         0.346297
+95%         0.387117
+max         0.480163
+Name: similarity, dtype: float64
