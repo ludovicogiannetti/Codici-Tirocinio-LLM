@@ -1,0 +1,3 @@
+Finished epoch 0. Average loss for this epoch: 0.041972
+Finished epoch 1. Average loss for this epoch: 0.027960
+Finished epoch 2. Average loss for this epoch: 0.025958
