@@ -1,0 +1,15 @@
+generator = torch.Generator(device=device).manual_seed(42)
+
+# Run the pipeline, showing some of the available arguments
+pipe_output = pipe(
+    prompt="Cartoon style painting of a sunny beach", # What to generate
+    negative_prompt="Oversaturated, blurry, low quality", # What NOT to generate
+    height=480,
+    width=640,           
+    guidance_scale=7.5,
+    num_inference_steps=35,    # How many steps to take
+    generator=generator        # Fixed random seed
+)
+
+# View the resulting image
+pipe_output.images[0]
