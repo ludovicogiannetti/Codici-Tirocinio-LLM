@@ -87,37 +87,54 @@ if os.path.exists(dataset_path):
 else:
     print("Cartella laion_subset_10000 non trovata!")
 
-# ! RUN PER SUBSET LION ! # # ! ! #
+# ! RUN PER SUBSET LION (MULTITHREAD) ! #
+# !                                   ! #
+
 import requests
 from io import BytesIO
+from PIL import Image
 from torchvision import transforms
+from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 preprocess = transforms.Compose([
     transforms.Resize((512, 512)),
     transforms.ToTensor(),
     transforms.Normalize([0.5, 0.5, 0.5],
-     [0.5, 0.5, 0.5])
-    ])
+                         [0.5, 0.5, 0.5])
+])
+
 def safe_load_image(url):
-  try:
-    headers = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get(url, headers=headers, timeout=10)
-    response.raise_for_status()
-    img = Image.open(BytesIO(response.content))
-    if img.mode not in ["RGB", "RGBA"]:
-      img = img.convert("RGB")
-    return preprocess(img)
-  except Exception as e:
-    return None
-urls = dataset['url']
+    try:
+        headers = {"User-Agent": "Mozilla/5.0"}
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        img = Image.open(BytesIO(response.content))
+        if img.mode not in ["RGB", "RGBA"]:
+            img = img.convert("RGB")
+        return preprocess(img)
+    except Exception:
+        return None
+        
+MAX_IMAGES = 5000
+urls = dataset["url"][:MAX_IMAGES]
+captions = dataset["caption"][:MAX_IMAGES]
+
+print(f"Download e preprocess di {len(urls)} immagini...\n")
+
 images = []
-captions = []
-for url, caption in zip(urls, dataset['caption']):
-  img_tensor = safe_load_image(url)
-  if img_tensor is not None:
-    images.append(img_tensor)
-    captions.append(caption)
-print(f"Immagini valide: {len(images)}")
+valid_captions = []
+
+with ThreadPoolExecutor(max_workers=4) as executor:  
+    futures = {executor.submit(safe_load_image, url): caption for url, caption in zip(urls, captions)}
+
+    for future in tqdm(as_completed(futures), total=len(futures), desc="Scaricamento immagini"):
+        img_tensor = future.result()
+        if img_tensor is not None:
+            images.append(img_tensor)
+            valid_captions.append(futures[future])
+
+print(f"\n Immagini valide: {len(images)} / {len(urls)}")
 
 # ! RUN PER DATASET SIMPSON ! #
 # !                         ! #
