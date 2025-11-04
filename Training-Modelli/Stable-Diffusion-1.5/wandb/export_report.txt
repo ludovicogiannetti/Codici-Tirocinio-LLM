@@ -1,0 +1,6 @@
+WandB Export Report
+Progetto: ludovicogiannetti-universit-di-pisa/sd15_lora_training
+Data esportazione: 2025-11-04T11:54:01.754189
+Runs totali: 3
+Runs elaborate con successo: 3
+Runs con dati dettagliati: 3

@@ -1,0 +1,4 @@
+id,name,state,url,created,epoch,loss,step
+gim3p9w9,sd-15,crashed,https://wandb.ai/ludovicogiannetti-universit-di-pisa/sd15_lora_training/runs/gim3p9w9,,2,0.0070028845220804214,1779
+odwsg31j,sd-15-Simpson,crashed,https://wandb.ai/ludovicogiannetti-universit-di-pisa/sd15_lora_training/runs/odwsg31j,,2,0.04108048230409622,7455
+4os7kbbm,sd-15-Simpson,crashed,https://wandb.ai/ludovicogiannetti-universit-di-pisa/sd15_lora_training/runs/4os7kbbm,,1,0.026915594935417175,3200
